@@ -1,0 +1,80 @@
+<h1>
+  <small>Presupuesto</small>
+  <span>{{ quotationCopy.id }}</span>
+</h1>
+<p class="dates">
+  <small>Creado el {{ quotationCopy.createdAt | date: "longDate" }}</small>
+  <ng-container *ngIf="quotationCopy.createdAt !== quotationCopy.lastModified">
+    <small>-</small>
+    <small>
+      <em>
+        Última modificación: {{ quotationCopy.lastModified | date: "longDate" }}
+      </em>
+    </small>
+  </ng-container>
+</p>
+
+<form [formGroup]="form">
+  <fieldset formGroupName="client">
+    <label>
+      Cliente
+      <input name="name" type="text" formControlName="name" />
+    </label>
+    <div class="contacto">
+      <label>
+        Email
+        <input name="email" type="text" formControlName="email" />
+      </label>
+      <label>
+        Teléfono
+        <input name="phone" type="text" formControlName="phone" />
+      </label>
+    </div>
+  </fieldset>
+  <fieldset formArrayName="items">
+    <table class="items">
+      <thead>
+        <tr>
+          <th>Concepto</th>
+          <th>Precio</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of items.controls; index as i" [formGroupName]="i">
+          <td class="items__description">
+            <input
+              name="description"
+              type="text"
+              formControlName="description"
+            />
+          </td>
+          <td class="items__price">
+            <input
+              name="price"
+              type="text"
+              inputmode="numeric"
+              formControlName="price"
+            />
+          </td>
+          <td class="items__action">
+            <button class="button--flat" type="button" (click)="deleteRow(i)">
+              <img src="/assets/icons/close_dark.svg" alt="Eliminar" />
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="items.controls.length > 0">
+          <td class="items__total__label">TOTAL:</td>
+          <td class="items__total__value">{{ quotationCopy.total }}</td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </fieldset>
+  <button type="button" class="add__item" (click)="addRow()">
+    + Añadir Concepto
+  </button>
+  <button type="submit" (click)="onSave(form)" [disabled]="form.pristine">
+    Guardar
+  </button>
+</form>

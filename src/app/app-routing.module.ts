@@ -1,10 +1,29 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouteReuseStrategy, RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [];
+import { CustomRouterReuseStrategy } from './custom-router-reuse.strategy';
+
+const routes: Routes = [
+  {
+    path: 'quotations',
+    loadChildren: () =>
+      import('./quoting/quoting.module').then((m) => m.QuotingModule),
+  },
+  {
+    path: '',
+    redirectTo: 'quotations',
+    pathMatch: 'full',
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [
+    {
+      provide: RouteReuseStrategy,
+      useClass: CustomRouterReuseStrategy,
+    },
+  ],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

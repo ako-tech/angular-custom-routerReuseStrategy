@@ -1,0 +1,12 @@
+<button type="button" class="button--flat" (click)="onHomeButtonClicked()">
+  <img src="assets/icons/home.svg" alt="Inicio" />
+</button>
+<ng-container *ngIf="tabs$ | async as tabs">
+  <ako-tab
+    *ngFor="let tab of tabs"
+    [tab]="tab"
+    [routerLink]="tab.url"
+    routerLinkActive="tab--active"
+    (closed)="onTabClosed(tab)"
+  ></ako-tab>
+</ng-container>

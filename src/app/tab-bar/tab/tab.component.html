@@ -1,0 +1,5 @@
+<img class="tab__img" src="assets/icons/doc.svg" alt="" aria-hidden="true" />
+<span>{{ tab.title }} {{ (tab.dirty$ | async) ? "*" : "" }}</span>
+<button type="button" class="button--flat" (click)="onClosed($event)">
+  <img src="assets/icons/close.svg" alt="close" />
+</button>

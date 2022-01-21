@@ -1,0 +1,31 @@
+<h1>Presupuestos</h1>
+<label class="search">
+  <img src="/assets/icons/search.svg" alt="Buscar" />
+  <input type="text" [formControl]="searchControl" placeholder="Buscar" />
+</label>
+<div class="container">
+  <table>
+    <thead>
+      <tr>
+        <th>No.</th>
+        <th>Cliente</th>
+        <th>Fecha</th>
+        <th>Total</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody *ngIf="filteredQuotations$ | async as quotations">
+      <tr *ngFor="let quotation of quotations">
+        <td>{{ quotation.id }}</td>
+        <td>{{ quotation.client?.name }}</td>
+        <td>{{ quotation.lastModified | date: "dd / MMM / YYYY" }}</td>
+        <td>{{ quotation.total }}</td>
+        <td class="row__actions">
+          <a [routerLink]="[quotation.id]">
+            <img src="assets/icons/open.svg" alt="open" />
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

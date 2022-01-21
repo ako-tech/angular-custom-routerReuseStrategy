@@ -1,0 +1,40 @@
+:host {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #444;
+  color: #eaeaea;
+  padding: var(--half-separation);
+  cursor: default;
+  margin-right: 2px;
+
+  &:hover {
+    background-color: #555;
+  }
+
+  &.tab--active {
+    background-color: #d98f00;
+    color: #fff;
+  }
+}
+.tab__img {
+  opacity: 0.4;
+  width: 20px;
+  margin-right: var(--half-separation);
+}
+
+button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: var(--half-separation);
+
+  img {
+    width: 18px;
+    opacity: 0.6;
+  }
+
+  &:hover img {
+    opacity: 1;
+  }
+}
