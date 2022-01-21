@@ -10,10 +10,16 @@ const routes: Routes = [
     path: '',
     component: QuotationListComponent,
     pathMatch: 'full',
+    data: {
+      mustBeStored: true,
+    },
   },
   {
     path: ':id',
     component: QuotationComponent,
+    data: {
+      mustBeStored: true,
+    },
     resolve: {
       quotation: QuotationResolver,
     },
